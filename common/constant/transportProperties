@@ -19,18 +19,18 @@ phases          (water air);
 water
 {
     transportModel  Newtonian;
-    nu              1e-06;
+    nu              1e-02;
     rho             1000;
 }
 
 air
 {
     transportModel  Newtonian;
-    nu              1.48e-05;
+    nu              1e-01;
     rho             1;
 }
 
-sigma            0.07;
+sigma            1.96;//calc discsussion//calc wiki 0.48951; //Eo=125
 
 
 // ************************************************************************* //
