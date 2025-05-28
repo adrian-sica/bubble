@@ -34,8 +34,8 @@ boundaryField
 
     upperWall
     {
-        type            fixedFluxPressure;
-        value           uniform 0;
+        type            totalPressure;
+        p0		uniform 0;
     }
 
     lowerWall
