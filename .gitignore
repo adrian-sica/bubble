@@ -1,0 +1,7 @@
+[1-9]*
+0.[0-9]*
+*/processor*
+*.foam
+constant/polyMesh/*
+log.*
+postProcessing
