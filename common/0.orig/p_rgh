@@ -32,19 +32,19 @@ boundaryField
         value           uniform 0;
     }
 
+    upperWall
+    {
+        type            fixedFluxPressure;
+        value           uniform 0;
+    }
+
     lowerWall
     {
         type            fixedFluxPressure;
         value           uniform 0;
     }
 
-    atmosphere
-    {
-        type            totalPressure;
-        p0              uniform 0;
-    }
-
-    defaultFaces
+    frontAndBack
     {
         type            empty;
     }

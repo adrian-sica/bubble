@@ -22,10 +22,15 @@ boundaryField
 {
     leftWall
     {
-        type            noSlip;
+        type            slip;
     }
 
     rightWall
+    {
+        type            slip;
+    }
+
+    upperWall
     {
         type            noSlip;
     }
@@ -35,13 +40,7 @@ boundaryField
         type            noSlip;
     }
 
-    atmosphere
-    {
-        type            pressureInletOutletVelocity;
-        value           uniform (0 0 0);
-    }
-
-    defaultFaces
+    frontAndBack
     {
         type            empty;
     }
