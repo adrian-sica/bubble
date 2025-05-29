@@ -40,7 +40,7 @@ def main():
         
     for i in range(len(n_x)):
         cell_area = lx*ly/(2*n_x[i]**2)
-        case_dir.append('../Simulations/results/mesh_' + str(n_x[i]) + '_Co_' + str(max_co[i]))
+        case_dir.append('../mesh_' + str(n_x[i]) + '_Co_' + str(max_co[i]))
         _, y, _ = readmesh(case_dir[i])
         
         for j in range(len(times)):
@@ -81,7 +81,7 @@ def main():
             fig, ax = plt.subplots(figsize=(6.2,7))
             for j in range(len(n_x)):
                 shape = np.loadtxt(case_dir[j] + '/postProcessing/interface/3/'
-                                    +'bubble_interface.raw', skiprows=2)
+                                    +'alpha.water_interface.raw', skiprows=2)
                 ax.plot(shape[:,0], shape[:,1], linestyle='None', color=colors[j], marker='.',
                         markersize=3, label=case_names[j])
                 
