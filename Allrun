@@ -3,47 +3,83 @@ cd "${0%/*}" || exit                                # Run from this directory
 . ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
 #------------------------------------------------------------------------------
 
-setDamBreakFine ()
+cases="
+mesh_80_Co_0.01
+mesh_160_Co_0.01
+"
+
+setMaxCoSmaller()
 {
-    blockMeshDict="system/blockMeshDict"
-    controlDict="system/controlDict"
-    sed \
-        -e s/"23 8"/"46 10"/g \
-        -e s/"19 8"/"40 10"/g \
-        -e s/"23 42\(.*\) 1 1)"/"46 76\1 2 1)"/g \
-        -e s/"4 42\(.*\) 1 1)"/"4 76\1 2 1)"/g \
-        -e s/"19 42\(.*\) 1 1)"/"40 76\1 2 1)"/g \
-        $blockMeshDict > temp.$$
-    mv -f temp.$$ $blockMeshDict
-    sed \
-        -e s/"\(deltaT[ \t]*\) 0.001;"/"\1 5e-04;"/g \
-        -e s/"\(endTime[ \t]*\) 1;"/"\1 0.4;"/g \
-        $controlDict > temp.$$
-    mv -f temp.$$ $controlDict
+    sed -i "s/maxCo           0.1;/maxCo           0.01;/" "$1/system/controlDict"
 }
 
-# Do damBreak
-(cd common && foamRunTutorials)
+setMeshFiner()
+{
+    sed -i "s/80 160/160 320/" "$1/system/blockMeshDict"
+}
 
+runSimulation()
+{
+    runApplication blockMesh
+    runApplication setFields
+    runApplication decomposePar
+    runParallel $(getApplication)
+    runApplication reconstructPar
+}
+
+# Do mesh_80_Co_0.1
+(cd mesh_80_Co_0.1 && foamRunTutorials)
+
+for acase in $cases
+do
+    cloneCase mesh_80_Co_0.1 "$acase"
+    case "$acase" in
+    mesh_80_Co_0.01)
+	setMaxCoSmaller "$acase"
+	;;
+
+    mesh_160_Co_0.01)
+        setMeshFiner "$acase"
+	setMaxCoSmaller "$acase"
+	;;
+    esac
+    ( cd $acase || exit
+    restore0Dir
+    runSimulation
+    touch "$acase.foam"
+    )
+done
+
+<<com
 if notTest "$@"
 then
     # Clone case
-    cloneCase common commonFine
+    cloneCase mesh_80_Co_0.1 mesh_80_Co_0.01
 
     (
-        cd commonFine || exit
+        cd mesh_80_Co_0.01 || exit
 
         # Modify case
-        setDamBreakFine
-        restore0Dir
+        setMaxCoSmaller
+	restore0Dir
 
         # And execute
-        runApplication blockMesh
-        runApplication setFields
-        runApplication decomposePar
-        runParallel $(getApplication)
-        runApplication reconstructPar
+	runSimulation
+    )
+
+    # Clone case
+    cloneCase mesh_80_Co_0.01 mesh_160_Co_0.01
+
+    (
+        cd mesh_160_Co_0.01 || exit
+
+        # Modify case
+        setMeshFiner
+	restore0Dir
+
+        # And execute
+	runSimulation
     )
 fi
-
+com
 #------------------------------------------------------------------------------

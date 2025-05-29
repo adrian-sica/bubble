@@ -3,8 +3,14 @@ cd "${0%/*}" || exit                                # Run from this directory
 . ${WM_PROJECT_DIR:?}/bin/tools/CleanFunctions      # Tutorial clean functions
 #------------------------------------------------------------------------------
 
-keepCases="common"
-loseCases="commonFine"
+keepCases="
+mesh_80_Co_0.1
+"
+
+loseCases="
+mesh_80_Co_0.01
+mesh_160_Co_0.01
+"
 
 for caseName in $keepCases
 do
