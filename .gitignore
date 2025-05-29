@@ -6,3 +6,4 @@
 constant/polyMesh/*
 log.*
 postProcessing
+mesh_*_Co_0.01
