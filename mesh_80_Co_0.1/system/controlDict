@@ -55,6 +55,8 @@ maxDeltaT       1;
 functions
 {
     #sinclude   "sampling"
+    #includeFunc   interface
+    #includeFunc   bubbleArea
 }
 
 
