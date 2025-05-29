@@ -16,6 +16,10 @@ runApplication blockMesh
 
 runApplication setFields
 
-runApplication $(getApplication)
+runApplication decomposePar
+
+runParallel $(getApplication)
+
+runApplication reconstructPar
 
 #------------------------------------------------------------------------------
