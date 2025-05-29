@@ -29,4 +29,8 @@ do
     removeCase "$caseName"
 done
 
+echo "Removing Bubble_PostProcessing/Figures"
+rm -r Bubble_PostProcessing/Figures
+rm Bubble_PostProcessing/log.postProcessing
+
 #------------------------------------------------------------------------------

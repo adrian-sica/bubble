@@ -34,8 +34,17 @@ runSimulation()
     runApplication reconstructPar
 }
 
+postProcess()
+{
+    cd Bubble_PostProcessing
+    mkdir Figures
+    echo "Running PostProcessing.py"
+    python PostProcessing.py > log.postProcessing 2>&1
+    cd ..
+}
+
 # Do mesh_80_Co_0.1
-(cd mesh_80_Co_0.1 && foamRunTutorials)
+(cd mesh_80_Co_0.1 && foamRunTutorials && touch mesh_80_Co_0.1.foam)
 
 for acase in $cases
 do
@@ -56,6 +65,10 @@ do
     touch "$acase.foam"
     )
 done
+
+# Post_process
+
+postProcess
 
 <<com
 if notTest "$@"
