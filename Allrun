@@ -1,4 +1,11 @@
 #!/bin/sh
+if [ -z "$OFv2412_SOURCED" ]; then
+    export OFv2412_SOURCED=1
+
+    echo "Sourcing OFv2412..."
+    . ~/OpenFOAM/OpenFOAM-v2412/etc/bashrc         # Sourcing OpenFOAM-v2412
+
+fi
 cd "${0%/*}" || exit                                # Run from this directory
 . ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
 #------------------------------------------------------------------------------
