@@ -3,7 +3,9 @@
 0.[0-9]*
 */processor*
 *.foam
-constant/polyMesh/*
+*/constant/polyMesh/*
 log.*
 postProcessing
 mesh_*_Co_0.01
+Bubble_PostProcessing/Figures
+*.swp
