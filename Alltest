@@ -1,0 +1,26 @@
+#!/bin/bash
+set -e
+
+# Run case
+echo "Cleaning old results..."
+./Allclean > log.Allclean 2>&1
+echo "Running the differnt cases..."
+./Allrun  > log.Allrun 2>&1 
+
+# Compare fields
+echo "Comparing results with reference..."
+#diff -rq postProcessing reference/postProcessing
+#diff -q log.run reference/log.run | grep -v '^Only in'
+diff -q <(tail -n +23 mesh_160_Co_0.01/log.blockMesh) <(tail -n +23 reference/mesh_160_Co_0.01.blockMesh.log)
+diff -q -I 'ExecutionTime' <(tail -n +90 mesh_160_Co_0.01/log.interFoam) <(tail -n +90 reference/mesh_160_Co_0.01.interFoam.log)
+diff -q <(tail -n +23 mesh_160_Co_0.01/log.setFields) <(tail -n +23 reference/mesh_160_Co_0.01.setFields.log)
+diff -q <(tail -n +23 mesh_80_Co_0.01/log.blockMesh) <(tail -n +23 reference/mesh_80_Co_0.01.blockMesh.log)
+diff -q -I 'ExecutionTime' <(tail -n +90 mesh_80_Co_0.01/log.interFoam) <(tail -n +90 reference/mesh_80_Co_0.01.interFoam.log)
+diff -q <(tail -n +23 mesh_80_Co_0.01/log.setFields) <(tail -n +23 reference/mesh_80_Co_0.01.setFields.log)
+diff -q <(tail -n +23 mesh_80_Co_0.1/log.blockMesh) <(tail -n +23 reference/mesh_80_Co_0.1.blockMesh.log)
+diff -q -I 'ExecutionTime' <(tail -n +90 mesh_80_Co_0.1/log.interFoam) <(tail -n +90 reference/mesh_80_Co_0.1.interFoam.log)
+diff -q <(tail -n +23 mesh_80_Co_0.1/log.setFields) <(tail -n +23 reference/mesh_80_Co_0.1.setFields.log)
+diff -q Bubble_PostProcessing/log.postProcessing reference/postProcessing.log
+
+
+echo "Regression test passed."
