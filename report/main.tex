@@ -1,4 +1,4 @@
-\documentclass[a4paper]{article}
+\documentclass[a4paper,12pt]{article}
 
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
@@ -30,6 +30,13 @@
      {\includegraphics[height=4cm]{uu_logo.png}};
 \end{tikzpicture}
 
+This reports explains the github repository  \href{https://github.com/adrian-sica/bubble.git}{`adrian-sica/bubble'} contents for the final assignment of the ``Software Applications for High Performance Wind Farm Flow Simulations" taught at Uppsala University, campus Visby. The `bubble' case is based on one of the final assignments of the course ``Basic Usage of OpenFOAM" at Chalmers University, the Rising bubble, which description is find in the instructions folder of the repository.
 
+The repository includes the following directories: Benchmark, Bubble\_PostProcessing, instructions, mesh\_80\_Co\_0.1, reference and report; additionally to the Allrun, Allclean, Alltest, LICENSE and README.md files. In the README file a brief description of the repository is given specifying the assumptions needed to run the case and perform the post-processing. Folders Benchmark, Bubble\_PostProcessing and instructions were provided by Prof. Håkan Nilsson at Chalmers University. This folders provide the assignment instructions and resources for the post-processing were results are compared against FreeLIFE code. Tthe mesh\_80\_Co\_0.1 directory has the OpenFOAM base structure to run the simulation, that's the system, constant and 0.orig folders. The reference folder has the logfiles to make the regression test. And lastly, the report case has the TeX files to generate this report.
 
-\end{document}
+The case setup was based in the multiphase/interFoam/laminar/damBreak tutorial of OpenCFD Ltd version
+OpenFOAM-v2412. As such, this case was slowly modified into the modelling of a rising bubble following the assignment criteria. In order to minimize the git repository size, only fundamental resources needed for the simulation were kept, as such no results are part of the repository. After correctly setting up the case, adjustments were made to run the post-processing results. On their inspection, an error was found and adjustments were made for obtaining correct results, which correctly match the assignment description.
+
+The main files needed to run the three cases are the Allrun, Allclean, and Alltest files. As suggested, the Allrun file runs the three different cases, the Allclean file cleans the simulation leaving only the simulation baseline, and Alltest cleans, runs and compares the results with a baseline case, fulfilling a regression test. Furthermore, the Allrun file copies and edits the baseline case, namely mesh\_80\_Co\_0.1, and creates the two remaining cases mesh\_80\_Co\_0.01 and mesh\_160\_Co\_0.01. 
+
+\end{document} 
