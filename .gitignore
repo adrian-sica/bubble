@@ -16,3 +16,5 @@ Bubble_PostProcessing/Figures
 *.pdf
 *.synctex.gz
 *.out
+*.bbl
+*.blg
